@@ -8,8 +8,43 @@ require "runcom"
 require "json"
 require "pp"
 require "terminal-table"
+require "daygram/cli_helpers"
 
 module Daygram
+  class Read < Thor
+    include Thor::Actions
+    include ThorPlus::Actions
+    include Daygram::CLIHelpers
+
+    def initialize args = [], options = {}, config = {}
+      super args, options, config
+    end
+
+    def self.configuration
+      Runcom::Configuration.new file_name: Daygram::Identity.file_name
+    end
+
+    class_option :format, :type => :string, :aliases => ['-f']
+
+    desc "[a]ll", %(Read all entries.)
+    def all
+      db = setup_db(options, self.class.configuration)
+      format_output db.all
+    end
+
+    desc "[la]test", %(Read latest entry.)
+    def latest
+      db = setup_db(options, self.class.configuration)
+      format_output db.latest
+    end
+
+    desc "[l]ast", %(Read last N entries.)
+    def last n
+      db = setup_db(options, self.class.configuration)
+      format_output db.last(n)
+    end
+  end
+
   # The Command Line Interface (CLI) for the gem.
   class CLI < Thor
     include Thor::Actions
@@ -65,54 +100,6 @@ module Daygram
 
     desc "[r]ead", %(Read the Daygram journal.)
     map %w[r read] => :read
-    method_option :all,
-                  aliases: "a",
-                  desc: "Read all entries.",
-                  type: :boolean, default: false
-    method_option :latest,
-                  desc: "Read latest entry.",
-                  type: :boolean, default: false
-    method_option :last,
-                  desc: "Read last N entries.",
-                  type: :boolean, default: true
-    method_option :format, :type => :string, :aliases => ['-f']
-
-    def read task = nil
-      config = self.class.configuration
-
-      if options[:database]
-        db_path = options[:database]
-      elsif config.to_h["database"]
-          db_path = config.to_h["database"]
-      else
-        say "Must specify the database location"
-        return
-      end
-
-      unless File.exists? db_path
-        say "Specified DB does not exist: #{db_path}"
-        return
-      end
-
-      db = Daygram::Database.new(db_path)
-
-      if task == 'all'
-        output = db.all
-      elsif task == 'last'
-        output = db.last(5)
-      else # or latest
-        output = db.latest
-      end
-
-      if options[:format] == 'hash'
-        pp output.to_hash
-      elsif options[:format] == 'json'
-        pp output.to_json
-      elsif options[:format] == 'table'
-        say Terminal::Table.new :title => "Daygram Diary", :headings => output.diary_fields, :rows => output.to_array
-      else
-        say output.to_s
-      end
-    end
+    subcommand "read", Read
   end
 end
