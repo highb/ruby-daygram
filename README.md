@@ -1,9 +1,9 @@
 # Daygram
 
 [![Gem Version](https://badge.fury.io/rb/daygram.svg)](http://badge.fury.io/rb/daygram)
-[![Code Climate GPA](https://codeclimate.com/github/highb/daygram.svg)](https://codeclimate.com/github/highb/daygram)
-[![Code Climate Coverage](https://codeclimate.com/github/highb/daygram/coverage.svg)](https://codeclimate.com/github/highb/daygram)
-[![Travis CI Status](https://secure.travis-ci.org/highb/daygram.svg)](https://travis-ci.org/highb/daygram)
+[![Code Climate GPA](https://codeclimate.com/github/highb/ruby-daygram.svg)](https://codeclimate.com/github/highb/ruby-daygram)
+[![Code Climate Coverage](https://codeclimate.com/github/highb/ruby-daygram/coverage.svg)](https://codeclimate.com/github/highb/ruby-daygram)
+[![Travis CI Status](https://secure.travis-ci.org/highb/ruby-daygram.svg)](https://travis-ci.org/highb/ruby-daygram)
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
