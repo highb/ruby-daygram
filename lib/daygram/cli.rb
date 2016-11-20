@@ -26,9 +26,8 @@ module Daygram
     end
 
     class_option :database, :type => :string, :aliases => ['-d', '-db']
-    class_option :format, :type => :string, :aliases => ['-f']
 
-    desc "c, [config]", %(Manage gem configuration ("#{configuration.computed_path}").)
+    desc "[c]onfig", %(Manage gem configuration ("#{configuration.computed_path}").)
     map %w[c config -c --config] => :config
     method_option :edit,
                   aliases: "-e",
@@ -52,19 +51,19 @@ module Daygram
       end
     end
 
-    desc "v, [version]", "Show gem version."
+    desc "[v]ersion", "Show gem version."
     map %w[v version -v --version] => :version
     def version
       say Identity.version_label
     end
 
-    desc "h, [help=COMMAND]", "Show this message or get help for a command."
+    desc "[h]elp COMMAND", "Show this message or get help for a command."
     map %w[h help -h --help] => :help
     def help task = nil
       say and super
     end
 
-    desc "r, [read]", %(Read the Daygram journal.)
+    desc "[r]ead", %(Read the Daygram journal.)
     map %w[r read] => :read
     method_option :all,
                   aliases: "a",
@@ -76,6 +75,7 @@ module Daygram
     method_option :last,
                   desc: "Read last N entries.",
                   type: :boolean, default: true
+    method_option :format, :type => :string, :aliases => ['-f']
 
     def read task = nil
       config = self.class.configuration
@@ -100,7 +100,7 @@ module Daygram
         output = db.all
       elsif task == 'last'
         output = db.last(5)
-      elsif task == 'latest'
+      else # or latest
         output = db.latest
       end
 
