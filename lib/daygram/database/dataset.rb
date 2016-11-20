@@ -45,6 +45,18 @@ module Daygram
       def to_json
         to_hash.to_json
       end
+
+      def format_output options
+        if options[:format] == 'hash'
+          self.to_hash
+        elsif options[:format] == 'json'
+          self.to_json
+        elsif options[:format] == 'table'
+          Terminal::Table.new :title => "Daygram Diary", :headings => diary_fields, :rows => self.to_array
+        else
+          self.to_s
+        end
+      end
     end
   end
 end

@@ -26,22 +26,28 @@ module Daygram
 
     class_option :format, :type => :string, :aliases => ['-f']
 
-    desc "[a]ll", %(Read all entries.)
+    desc "all", %(Read all entries.)
     def all
-      db = setup_db(options, self.class.configuration)
-      format_output db.all
+      db = Daygram::Database.new(options, self.class.configuration)
+      say db.all.format_output(options)
     end
 
-    desc "[la]test", %(Read latest entry.)
+    desc "latest", %(Read latest entry.)
     def latest
-      db = setup_db(options, self.class.configuration)
-      format_output db.latest
+      db = Daygram::Database.new(options, self.class.configuration)
+      say db.latest.format_output(options)
     end
 
-    desc "[l]ast", %(Read last N entries.)
-    def last n
-      db = setup_db(options, self.class.configuration)
-      format_output db.last(n)
+    desc "last N", %(Read last N entries.)
+    def last n=5
+      db = Daygram::Database.new(options, self.class.configuration)
+      say db.last(n).format_output(options)
+    end
+
+    desc "day YYYY-MM-DD", %(Read YYYY-MM-DD entry.)
+    def day date
+      db = Daygram::Database.new(options, self.class.configuration)
+      say db.day(date).format_output(options)
     end
   end
 
@@ -62,7 +68,7 @@ module Daygram
 
     class_option :database, :type => :string, :aliases => ['-d', '-db']
 
-    desc "[c]onfig", %(Manage gem configuration ("#{configuration.computed_path}").)
+    desc "config", %(Manage gem configuration ("#{configuration.computed_path}").)
     map %w[c config -c --config] => :config
     method_option :edit,
                   aliases: "-e",
@@ -86,20 +92,19 @@ module Daygram
       end
     end
 
-    desc "[v]ersion", "Show gem version."
+    desc "version", "Show gem version."
     map %w[v version -v --version] => :version
     def version
       say Identity.version_label
     end
 
-    desc "[h]elp COMMAND", "Show this message or get help for a command."
+    desc "help COMMAND", "Show this message or get help for a command."
     map %w[h help -h --help] => :help
     def help task = nil
       say and super
     end
 
-    desc "[r]ead", %(Read the Daygram journal.)
-    map %w[r read] => :read
+    desc "read", %(Read the Daygram journal.)
     subcommand "read", Read
   end
 end
