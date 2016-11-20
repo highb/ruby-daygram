@@ -1,3 +1,6 @@
 *.gem
 .bundle
 pkg/*
+coverage/*
+Gemfile.lock
+tmp/*
