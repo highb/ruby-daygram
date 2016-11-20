@@ -15,10 +15,10 @@ module Daygram
     include Thor::Actions
     include ThorPlus::Actions
 
-    package_name Identity.version_label
+    package_name Daygram::Identity.version_label
 
     def self.configuration
-      Runcom::Configuration.new file_name: Identity.file_name
+      Runcom::Configuration.new file_name: Daygram::Identity.file_name
     end
 
     def initialize args = [], options = {}, config = {}
