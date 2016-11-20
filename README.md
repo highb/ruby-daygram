@@ -55,9 +55,13 @@ To print the latest entry:
 
     daygram read latest
 
-To print the last 5 entries:
+To print the last 3 entries:
 
-    daygram read last
+    daygram read last 3
+
+To print the entry for a particular date:
+
+    daygram read day 2016-11-15
 
 To print the entries as JSON, Ruby Hash, or a table:
 
