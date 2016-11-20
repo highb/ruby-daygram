@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brandon High"]
   spec.email = ["brandonhigh@gmail.com"]
-  spec.homepage = ""
-  spec.summary = ""
-  spec.license = "MIT"
+  spec.homepage = "https://github.com/highb/ruby-daygram"
+  spec.summary = "For interacting with Daygram for Android sqlite DBs"
+  spec.license = "Apache-2.0"
 
   if File.exist?(Gem.default_key_path) && File.exist?(Gem.default_cert_path)
     spec.signing_key = Gem.default_key_path
