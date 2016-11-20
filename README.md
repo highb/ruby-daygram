@@ -10,7 +10,6 @@
 # Table of Contents
 
 - [Features](#features)
-- [Screencasts](#screencasts)
 - [Requirements](#requirements)
 - [Setup](#setup)
 - [Usage](#usage)
