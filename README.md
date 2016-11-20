@@ -26,8 +26,6 @@
 
 # Features
 
-# Screencasts
-
 # Requirements
 
 0. [Ruby 2.3.1](https://www.ruby-lang.org)
