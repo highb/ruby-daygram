@@ -49,13 +49,19 @@ For an insecure install, type the following (not recommended): -->
 # Usage
 
 To print all of the entries in the Daygram:
+
     daygram read all
+
 To print the latest entry:
+
     daygram read latest
+
 To print the last 5 entries:
+
     daygram read last
 
 To print the entries as JSON, Ruby Hash, or a table:
+
     daygram read last --format json
     daygram read last --format hash
     daygram read last --format table
